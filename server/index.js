@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const { connection } = require("./configs/db");
 const { authenticate } = require("./middlewares/Authenticate.middleware");
 const userRouter = require("./routes/User.routes");
-
+const expenseRouter = require("./routes/Expense.routes");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -24,6 +24,7 @@ app.get("/api/v1", (req, res) => {
 
 app.use("/api/v1/users", userRouter);
 app.use(authenticate);
+app.use("/api/v1/expense", expenseRouter);
 
 //start the server
 app.listen(process.env.port, async () => {
