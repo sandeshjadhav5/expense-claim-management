@@ -17,6 +17,12 @@ expenseRouter.post(
 // Route to get all expenses
 expenseRouter.get("/getallexpenses", expenseController.getAllExpenses);
 
+// Route to get all expenses of an employee
+expenseRouter.get(
+  "/getallexpensesbyemployee/:userId",
+  expenseController.getAllExpensesByEmployee
+);
+
 // Route to get a specific expense by ID
 expenseRouter.get("/getexpensebyid/:id", expenseController.getExpenseById);
 
