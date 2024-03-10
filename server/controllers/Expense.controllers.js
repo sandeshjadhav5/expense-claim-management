@@ -42,10 +42,21 @@ exports.getAllExpenses = async (req, res) => {
   }
 };
 
+// Controller to get all expenses of an employee
+exports.getAllExpensesByEmployee = async (req, res) => {
+  try {
+    const employeeId = req.params.userId;
+    const expenses = await ExpenseModel.find({ employee: employeeId });
+    res.status(200).json(expenses);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Controller to get a specific expense by ID
 exports.getExpenseById = async (req, res) => {
   try {
-    const expense = await ExpenseModel.findById(req.params.id);
+    const expense = await ExpenseModel.find({ employee: req.params.id });
     if (!expense) {
       return res.status(404).json({ message: "Expense not found" });
     }
@@ -59,7 +70,7 @@ exports.getExpenseById = async (req, res) => {
 exports.updateExpense = async (req, res) => {
   try {
     const { status } = req.body;
-    const expense = await ExpenseModel.findById(req.params.id);
+    const expense = await ExpenseModel.findOne({ employee: req.params.id });
     if (!expense) {
       return res.status(404).json({ message: "Expense not found" });
     }
@@ -74,11 +85,10 @@ exports.updateExpense = async (req, res) => {
 // Controller to delete an expense
 exports.deleteExpense = async (req, res) => {
   try {
-    const expense = await ExpenseModel.findById(req.params.id);
+    const expense = await ExpenseModel.findByIdAndDelete(req.params.id);
     if (!expense) {
       return res.status(404).json({ message: "Expense not found" });
     }
-    await expense.remove();
     res.status(200).json({ message: "Expense deleted successfully" });
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -23,7 +23,7 @@ app.get("/api/v1", (req, res) => {
 });
 
 app.use("/api/v1/users", userRouter);
-app.use(authenticate);
+// app.use(authenticate);
 app.use("/api/v1/expense", expenseRouter);
 
 //start the server
