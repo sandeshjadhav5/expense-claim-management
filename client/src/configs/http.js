@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const baseURL = "http://localhost:8080/api/v1";
+export const baseURL = "https://tiny-red-abalone-suit.cyclic.app/api/v1";
 
 const http = axios.create({ baseURL });
 const access_token = localStorage.getItem("access_token");
